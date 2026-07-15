@@ -1,0 +1,6 @@
+{
+  "name": "SABLE Fragrances",
+  "description": "Luxury Extrait de Parfum crafted in India.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
