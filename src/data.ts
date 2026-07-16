@@ -1,6 +1,15 @@
-import clearBottle from './assets/images/sable_bottle_clear_1784142706216.jpg';
-import blackBottle from './assets/images/sable_bottle_black_1784142726509.jpg';
-import flutedBottle from './assets/images/sable_bottle_fluted_1784142739193.jpg';
+import verinag from './assets/images/verinag.jpg';
+import homecoming from './assets/images/homecoming.jpg';
+import theFirstDew from './assets/images/the_first_dew.jpg';
+import dachigam from './assets/images/dachigam.jpg';
+import theSunsetIris from './assets/images/the_sunset_iris.jpg';
+import theBookmark from './assets/images/the_bookmark.jpg';
+import theDeparture from './assets/images/the_departure.jpg';
+import theWatchmaker from './assets/images/the_watchmaker.jpg';
+import theAlibi from './assets/images/the_alibi.jpg';
+import longShadows from './assets/images/long_shadows.jpg';
+import pasbaan from './assets/images/pasbaan.jpg';
+import theLastLetter from './assets/images/the_last_letter.jpg';
 import { Perfume } from './types';
 
 export const PERFUMES_DATA: Perfume[] = [
@@ -10,7 +19,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER I',
     description: 'Every river begins with a single spring.',
     price: 2590,
-    image: clearBottle,
+    image: verinag,
     occasions: ['Daywear', 'Office', 'Summer', 'Travel'],
     topNotes: ['Bergamot', 'Neroli', 'Ginger'],
     heartNotes: ['Tea', 'Green Apple', 'Orange Blossom'],
@@ -22,7 +31,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER II',
     description: 'Before you see home, you breathe it.',
     price: 2690,
-    image: blackBottle,
+    image: homecoming,
     occasions: ['Daywear', 'Office', 'All Seasons', 'Smart Casual'],
     topNotes: ['Bergamot', 'Blackcurrant', 'Apple', 'Pineapple'],
     heartNotes: ['Birch', 'Patchouli', 'Jasmine', 'Rose'],
@@ -34,7 +43,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER III',
     description: 'Every spring, Kashmir remembers how to bloom.',
     price: 2790,
-    image: clearBottle,
+    image: theFirstDew,
     occasions: ['Daywear', 'Casual', 'Spring', 'Summer'],
     topNotes: ['Passionfruit', 'Grapefruit', 'Pineapple'],
     heartNotes: ['Peony', 'Vanilla Orchid', 'Red Berries'],
@@ -46,7 +55,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER IV',
     description: 'Somewhere, between the cedar shadows, the Hangul is still counting seasons.',
     price: 2890,
-    image: blackBottle,
+    image: dachigam,
     occasions: ['Daywear', 'Office', 'All Seasons'],
     topNotes: ['Apple', 'Plum', 'Bergamot', 'Lemon'],
     heartNotes: ['Cinnamon', 'Mahogany', 'Carnation'],
@@ -58,7 +67,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER V',
     description: 'Uncultivated and Enduring.',
     price: 2790,
-    image: clearBottle,
+    image: theSunsetIris,
     occasions: ['Evening', 'Dates', 'Autumn', 'Winter'],
     topNotes: ['Violet', 'Aldehydes'],
     heartNotes: ['Orris', 'Iris', 'Rose'],
@@ -70,7 +79,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER VI',
     description: 'Because some pages deserve another life.',
     price: 2490,
-    image: clearBottle,
+    image: theBookmark,
     occasions: ['Daywear', 'Casual', 'Attire', 'All Seasons'],
     topNotes: ['Pear', 'Red Berries'],
     heartNotes: ['Gardenia', 'Frangipani', 'Jasmine'],
@@ -82,7 +91,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER VII',
     description: 'Where will today take you?',
     price: 2490,
-    image: clearBottle,
+    image: theDeparture,
     occasions: ['Day & Night', 'Travel', 'Weekends', 'Dates'],
     topNotes: ['Lavender', 'Mandarin', 'Blackcurrant'],
     heartNotes: ['Orange Blossom', 'Jasmine'],
@@ -94,7 +103,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER VIII',
     description: 'Some things should never be rushed.',
     price: 2590,
-    image: blackBottle,
+    image: theWatchmaker,
     occasions: ['Evening', 'Formal', 'Winter'],
     topNotes: ['Saffron', 'Raspberry', 'Thyme'],
     heartNotes: ['Olibanum', 'Jasmine'],
@@ -106,7 +115,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER IX',
     description: 'Every secret begins with a good story.',
     price: 2690,
-    image: blackBottle,
+    image: theAlibi,
     occasions: ['Night Out', 'Parties', 'Winter'],
     topNotes: ['Cardamom'],
     heartNotes: ['Toffee', 'Lavender'],
@@ -118,7 +127,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER X',
     description: 'Some journeys begin after sunset.',
     price: 2890,
-    image: blackBottle,
+    image: longShadows,
     occasions: ['Evening', 'Winter', 'Special Occasions'],
     topNotes: ['Raspberry', 'Saffron'],
     heartNotes: ['Incense', 'Rose', 'Birch'],
@@ -130,7 +139,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER XI',
     description: 'The strongest guardians are rarely seen.',
     price: 2590,
-    image: blackBottle,
+    image: pasbaan,
     occasions: ['Evening', 'Winter', 'Moments of Strength'],
     topNotes: ['Green Notes', 'Cannabis'],
     heartNotes: ['Incense', 'Resin', 'Woody Notes'],
@@ -142,7 +151,7 @@ export const PERFUMES_DATA: Perfume[] = [
     chapter: 'CHAPTER XII',
     description: 'Some words arrive long after they\'re written.',
     price: 2690,
-    image: clearBottle,
+    image: theLastLetter,
     occasions: ['Daywear', 'Casual', 'Spring', 'Autumn'],
     topNotes: ['Strawberry', 'Raspberry', 'Cherry', 'Blackberry'],
     heartNotes: ['Peony', 'Violet', 'Jasmine'],

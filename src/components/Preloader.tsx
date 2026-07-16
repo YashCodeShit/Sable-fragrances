@@ -94,7 +94,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         isFadingOut ? 'opacity-0 scale-102 pointer-events-none' : 'opacity-100 scale-100'
       }`}
     >
-      <div className="flex flex-col items-center justify-center">
+      <div className="flex flex-col items-center justify-center space-y-4">
         {/* Only elegant SABLE branding centered with breathing animation */}
         <h1
           className="font-serif text-5xl md:text-7xl tracking-[0.35em] pl-[0.35em] text-white select-none animate-pulse-gentle"
@@ -102,6 +102,11 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
         >
           SABLE
         </h1>
+        {/* Animated thick horizontal line centered below SABLE as requested */}
+        <div 
+          className="h-[3px] bg-[#C9A66B] rounded-full animate-line-expand" 
+          style={{ width: '60px' }} 
+        />
       </div>
 
       {/* Styled inline animation for the pulse */}

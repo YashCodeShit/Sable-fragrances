@@ -32,12 +32,15 @@ export const Navbar: React.FC<NavbarProps> = ({ cartCount, onCartClick }) => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex justify-between items-center">
-        {/* Left: SABLE Logo */}
+        {/* Left: SABLE Logo with Brand Line */}
         <a
           href="#"
-          className="font-serif text-2xl md:text-3xl tracking-[0.25em] text-white hover:opacity-85 transition-opacity"
+          className="group flex flex-col items-center hover:opacity-85 transition-opacity text-center"
         >
-          SABLE
+          <span className="font-serif text-2xl md:text-3xl tracking-[0.25em] pl-[0.25em] text-white leading-none">
+            SABLE
+          </span>
+          <div className="h-[2.5px] bg-[#C9A66B] rounded-full w-8 mt-1.5 animate-line-expand" />
         </a>
 
         {/* Right: Shopping Cart Icon */}

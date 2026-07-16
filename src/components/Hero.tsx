@@ -31,18 +31,40 @@ export const Hero: React.FC = () => {
             {/* Minimalist Mountain SVG and caption */}
             <div className="flex flex-col items-start space-y-2">
               <svg 
-                className="w-16 h-8 text-[#C9A66B]" 
-                viewBox="0 0 100 40" 
+                className="w-24 h-12 text-[#C9A66B]" 
+                viewBox="0 0 120 50" 
                 fill="none" 
                 stroke="currentColor" 
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                {/* Clean, minimalist overlapping mountain peaks */}
-                <path d="M10 35 L40 10 L60 25 L85 5 L95 35 Z" />
-                <path d="M25 35 L48 18 L68 30" opacity="0.6" />
-                <line x1="5" y1="35" x2="95" y2="35" strokeWidth="1" opacity="0.5" />
+                {/* Left Mountain Peak (hand-drawn sketch style) */}
+                <path d="M20 40 L38 24 L52 38" />
+                {/* Left mountain ridge line & detail */}
+                <path d="M38 24 L42 34" strokeWidth="0.8" opacity="0.8" />
+                <path d="M36 26 L39 33" strokeWidth="0.6" opacity="0.6" />
+                <path d="M40 25 L41 31" strokeWidth="0.6" opacity="0.6" />
+
+                {/* Central Tallest Mountain Peak */}
+                <path d="M34 40 L60 12 L86 38" strokeWidth="1.4" />
+                {/* Central mountain ridge line and cross-hatch shading to match the image */}
+                <path d="M60 12 L68 32" strokeWidth="1.5" />
+                <path d="M57 16 L61 28" strokeWidth="0.8" opacity="0.8" />
+                <path d="M62 14 L64 22" strokeWidth="0.8" opacity="0.8" />
+                
+                {/* Hatching/sketch lines on center mountain faces to simulate hand-sketch style */}
+                <path d="M52 26 L56 24" strokeWidth="0.6" opacity="0.7" />
+                <path d="M55 22 L58 21" strokeWidth="0.6" opacity="0.7" />
+                <path d="M63 20 L66 23" strokeWidth="0.6" opacity="0.7" />
+                <path d="M66 25 L69 28" strokeWidth="0.6" opacity="0.7" />
+
+                {/* Right Mountain Peak */}
+                <path d="M64 40 L82 26 L100 38" />
+                {/* Right mountain ridge & detail */}
+                <path d="M82 26 L88 34" strokeWidth="0.8" opacity="0.8" />
+                <path d="M80 28 L83 33" strokeWidth="0.6" opacity="0.6" />
+                <path d="M84 27 L85 31" strokeWidth="0.6" opacity="0.6" />
               </svg>
               <span className="font-serif italic text-sm tracking-[0.15em] text-[#C9A66B]">
                 atmosphere bottled
@@ -90,8 +112,10 @@ export const Hero: React.FC = () => {
         <div className="hidden lg:col-span-5 lg:flex flex-col items-center justify-center text-center">
           <div className="border border-[#2B2B2B] bg-[#121212]/30 backdrop-blur-sm p-10 max-w-sm rounded-sm text-center space-y-4">
             <span className="font-serif text-xs tracking-[0.3em] text-[#C9A66B]">EST. 2025</span>
-            <h1 className="font-serif text-3xl tracking-[0.2em] text-white">SABLE</h1>
-            <div className="h-[1px] w-12 bg-[#C9A66B]/50 mx-auto" />
+            <div className="flex flex-col items-center space-y-3">
+              <h1 className="font-serif text-3xl tracking-[0.25em] pl-[0.25em] text-white">SABLE</h1>
+              <div className="h-[3px] bg-[#C9A66B] rounded-full w-10 animate-line-expand" />
+            </div>
             <p className="font-sans text-xs tracking-[0.15em] text-[#B8B8B8] leading-relaxed">
               EXTRAIT DE PARFUM
               <br />

@@ -7,23 +7,18 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Custom scrollbar to keep layout premium */
+/* Hide scrollbar completely to keep the premium presentation seamless */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #0B0B0B;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #2B2B2B;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #C9A66B;
+  display: none; /* Chrome, Safari and Opera */
+  width: 0 !important;
+  height: 0 !important;
 }
 
 html {
@@ -35,4 +30,25 @@ html {
 body {
   font-family: var(--font-sans);
   overflow-x: hidden;
+}
+
+/* Custom horizontal line expansion animation matching the requested design */
+.animate-line-expand {
+  animation: line-expand 1.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  transform-origin: center;
+}
+
+@keyframes line-expand {
+  0% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  20% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }

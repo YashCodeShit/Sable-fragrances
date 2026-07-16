@@ -48,26 +48,13 @@ export const Features: React.FC = () => {
           <path d="M19.07 4.93L4.93 19.07" strokeDasharray="2 2" />
         </svg>
       )
-    },
-    {
-      title: 'BEYOND GENDER',
-      desc: 'Scents that are felt, not defined.',
-      svg: (
-        <svg className="w-10 h-10 text-[#C9A66B]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-          {/* Overlapping minimalist spheres (wireframe) */}
-          <circle cx="10" cy="12" r="6" />
-          <circle cx="14" cy="12" r="6" />
-          <path d="M10 6C11 7.5 11 16.5 10 18" strokeDasharray="1 1" />
-          <path d="M14 6C13 7.5 13 16.5 14 18" strokeDasharray="1 1" />
-        </svg>
-      )
     }
   ];
 
   return (
     <section id="features-section" className="bg-[#0B0B0B] py-16 border-t border-[#2B2B2B]/40">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {items.map((item, index) => (
             <div
               key={index}
