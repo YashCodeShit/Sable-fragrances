@@ -36,13 +36,16 @@ export const ProductPopup: React.FC<ProductPopupProps> = ({ perfume, onClose }) 
         {/* Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 max-h-[90vh] overflow-y-auto">
           {/* Left Column: Fragrance Image */}
-          <div className="bg-[#0B0B0B] p-8 flex items-center justify-center border-r border-[#2B2B2B]/50 min-h-[300px] md:min-h-[450px]">
+          <div className="bg-[#0B0B0B] relative overflow-hidden border-b md:border-b-0 md:border-r border-[#2B2B2B]/50 min-h-[350px] md:min-h-full">
             <img
               src={perfume.image}
               alt={perfume.name}
-              className="max-h-[320px] md:max-h-[400px] object-contain transform hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover transform hover:scale-103 transition-transform duration-700 filter brightness-95"
               referrerPolicy="no-referrer"
+              loading="lazy"
             />
+            {/* Subtle premium dark overlay at the bottom/edges */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
           </div>
 
           {/* Right Column: Fragrance Details */}

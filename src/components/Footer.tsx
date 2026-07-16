@@ -22,11 +22,13 @@ export const Footer: React.FC<FooterProps> = ({
                 alt="SABLE Luxury Box and Perfume Bottle"
                 className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-transform duration-1000 hover:scale-103"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="flex justify-between items-center text-[9px] tracking-[0.2em] font-mono text-[#6E6E6E] uppercase px-1">
               <span>SABLE OBJECTS — THE SIGNATURE PACKAGING</span>
-              <span>EST. 2026</span>
+              <span>EST. 2025</span>
             </div>
           </div>
 

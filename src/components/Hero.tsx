@@ -11,6 +11,8 @@ export const Hero: React.FC = () => {
           alt="Cinematic Mountains of Kashmir"
           className="w-full h-full object-cover object-center scale-105 filter brightness-50"
           referrerPolicy="no-referrer"
+          fetchPriority="high"
+          decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/70 to-[#0B0B0B]/30" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-[#0B0B0B]/30" />
@@ -111,7 +113,7 @@ export const Hero: React.FC = () => {
         {/* Right Side: Spacer/Aesthetic Balance */}
         <div className="hidden lg:col-span-5 lg:flex flex-col items-center justify-center text-center">
           <div className="border border-[#2B2B2B] bg-[#121212]/30 backdrop-blur-sm p-10 max-w-sm rounded-sm text-center space-y-4">
-            <span className="font-serif text-xs tracking-[0.3em] text-[#C9A66B]">EST. 2025</span>
+            <span className="font-serif text-xs tracking-[0.3em] text-[#C9A66B]">EST. 2026</span>
             <div className="flex flex-col items-center space-y-3">
               <h1 className="font-serif text-3xl tracking-[0.25em] pl-[0.25em] text-white">SABLE</h1>
               <div className="h-[3px] bg-[#C9A66B] rounded-full w-10 animate-line-expand" />
