@@ -56,9 +56,9 @@ export const Footer: React.FC<FooterProps> = ({
                   <span className="text-white">34°11'01.8"N 74°54'22.0"E</span>
                 </div>
                 <div className="text-center lg:text-left">
-                  <span className="text-[#6E6E6E] block mb-1">CONCENTRATION</span>
+                  <span className="text-[#6E6E6E] block mb-1">CONCENTRATION & SIZE</span>
                   <span className="text-[#C9A66B] block">EXTRAIT DE PARFUM</span>
-                  <span className="text-white text-[9px] block mt-0.5 font-light">100ML</span>
+                  <span className="text-white text-[9px] block mt-0.5 font-light">100ML 3.4 FL. OZ.</span>
                 </div>
               </div>
               
