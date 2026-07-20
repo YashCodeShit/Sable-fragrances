@@ -57,7 +57,8 @@ export const Footer: React.FC<FooterProps> = ({
                 </div>
                 <div className="text-center lg:text-left">
                   <span className="text-[#6E6E6E] block mb-1">CONCENTRATION</span>
-                  <span className="text-[#C9A66B]">EXTRAIT DE PARFUM</span>
+                  <span className="text-[#C9A66B] block">EXTRAIT DE PARFUM</span>
+                  <span className="text-white text-[9px] block mt-0.5 font-light">100ML</span>
                 </div>
               </div>
               

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X, Trash2, Plus, Minus, MessageSquare, ShoppingBag } from 'lucide-react';
 import { CartItem } from '../types';
 
@@ -17,6 +17,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   onUpdateQuantity,
   onRemoveItem
 }) => {
+  const [shippingRegion, setShippingRegion] = useState<'ncr' | 'outside'>('ncr');
+
   // Prevent background scrolling when cart is open
   useEffect(() => {
     if (isOpen) {
@@ -34,6 +36,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
   // Calculations
   const totalBottles = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const grandTotal = cartItems.reduce((sum, item) => sum + (item.perfume.price * item.quantity), 0);
+  const shippingCost = shippingRegion === 'ncr' ? 150 : 250;
+  const finalTotal = grandTotal + shippingCost;
 
   // Currency format helper
   const formatCurrency = (value: number) => {
@@ -65,7 +69,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       }
     });
 
-    const message = `Hello SABLE Team,\n\nI would like to place an order for the following fragrances:\n\n${itemsText}\n\n---\n\nTotal Bottles: ${totalBottles}\n\nGrand Total: ${formatCurrency(grandTotal)}\n\nKindly confirm availability and share the payment details.\n\nThank you.`;
+    const message = `Hello SABLE Team,\n\nI would like to place an order for the following fragrances:\n\n${itemsText}\n\n---\n\nTotal Bottles: ${totalBottles}\nDelivery Region: ${shippingRegion === 'ncr' ? 'Within NCR' : 'Outside NCR'}\n\nSubtotal: ${formatCurrency(grandTotal)}\nShipping & Packaging: ${formatCurrency(shippingCost)}\nGrand Total: ${formatCurrency(finalTotal)}\n\nKindly confirm availability and share the payment details.\n\nThank you.`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://api.whatsapp.com/send?phone=919711989043&text=${encodedMessage}`;
@@ -199,15 +203,52 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
           {/* Footer with checkout details */}
           {cartItems.length > 0 && (
-            <div className="p-6 border-t border-[#2B2B2B] bg-[#0B0B0B] space-y-4">
-              <div className="space-y-2">
-                <div className="flex justify-between items-center text-xs tracking-wider text-[#B8B8B8]">
-                  <span>Total Fragrances</span>
-                  <span>{totalBottles} bottles</span>
+            <div className="p-6 border-t border-[#2B2B2B] bg-[#0B0B0B] space-y-5">
+              {/* Shipping & Packaging Selector */}
+              <div className="space-y-2.5">
+                <span className="block font-mono text-[9px] tracking-[0.2em] text-[#6E6E6E] uppercase">
+                  SHIPPING & PACKAGING REGION
+                </span>
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    onClick={() => setShippingRegion('ncr')}
+                    className={`px-3 py-2.5 border rounded-sm text-center font-mono text-[10px] tracking-wider transition-all cursor-pointer ${
+                      shippingRegion === 'ncr'
+                        ? 'border-[#C9A66B] bg-[#C9A66B]/5 text-[#C9A66B] font-medium'
+                        : 'border-[#2B2B2B] bg-[#121212]/50 text-[#8A8A8A] hover:border-[#6E6E6E]'
+                    }`}
+                  >
+                    WITHIN NCR
+                    <span className="block text-[9px] mt-0.5 opacity-80">₹150</span>
+                  </button>
+                  <button
+                    onClick={() => setShippingRegion('outside')}
+                    className={`px-3 py-2.5 border rounded-sm text-center font-mono text-[10px] tracking-wider transition-all cursor-pointer ${
+                      shippingRegion === 'outside'
+                        ? 'border-[#C9A66B] bg-[#C9A66B]/5 text-[#C9A66B] font-medium'
+                        : 'border-[#2B2B2B] bg-[#121212]/50 text-[#8A8A8A] hover:border-[#6E6E6E]'
+                    }`}
+                  >
+                    OUTSIDE NCR
+                    <span className="block text-[9px] mt-0.5 opacity-80">₹250</span>
+                  </button>
                 </div>
-                <div className="flex justify-between items-center font-serif text-lg text-white">
+              </div>
+
+              <div className="h-[1px] bg-[#2B2B2B]/40 w-full" />
+
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-[10px] font-mono tracking-wider text-[#8A8A8A] uppercase">
+                  <span>Subtotal ({totalBottles} bottles)</span>
+                  <span className="text-white">{formatCurrency(grandTotal)}</span>
+                </div>
+                <div className="flex justify-between items-center text-[10px] font-mono tracking-wider text-[#8A8A8A] uppercase">
+                  <span>Shipping & Packaging</span>
+                  <span className="text-white">{formatCurrency(shippingCost)}</span>
+                </div>
+                <div className="pt-2 flex justify-between items-center font-serif text-lg text-white border-t border-[#2B2B2B]/20">
                   <span>Grand Total</span>
-                  <span className="text-[#C9A66B] font-semibold">{formatCurrency(grandTotal)}</span>
+                  <span className="text-[#C9A66B] font-semibold">{formatCurrency(finalTotal)}</span>
                 </div>
               </div>
 
