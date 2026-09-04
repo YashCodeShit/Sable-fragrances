@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Camera, RotateCcw } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { X } from 'lucide-react';
 import { Perfume } from '../types';
 import { OccasionIcon } from './OccasionIcon';
 
@@ -9,11 +9,9 @@ interface ProductPopupProps {
 }
 
 export const ProductPopup: React.FC<ProductPopupProps> = ({ perfume, onClose }) => {
-  const [modalImage, setModalImage] = useState<string>(perfume?.image || '');
   const [selectedSize, setSelectedSize] = useState<'30ml' | '100ml'>(
     perfume?.size?.includes('30') ? '30ml' : '100ml'
   );
-  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (!perfume) return;
@@ -22,19 +20,6 @@ export const ProductPopup: React.FC<ProductPopupProps> = ({ perfume, onClose }) 
     } else {
       setSelectedSize('100ml');
     }
-    try {
-      const saved = localStorage.getItem('sable_discovery_photos');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        if (parsed[perfume.id]) {
-          setModalImage(parsed[perfume.id]);
-          return;
-        }
-      }
-    } catch {
-      // ignore
-    }
-    setModalImage(perfume.image);
   }, [perfume]);
 
   if (!perfume) return null;
@@ -43,56 +28,12 @@ export const ProductPopup: React.FC<ProductPopupProps> = ({ perfume, onClose }) 
   const displayPrice = activeOption ? activeOption.price : perfume.price;
   const displaySize = activeOption ? activeOption.label : (perfume.size || '');
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          setModalImage(reader.result);
-          try {
-            const saved = localStorage.getItem('sable_discovery_photos');
-            const parsed = saved ? JSON.parse(saved) : {};
-            parsed[perfume.id] = reader.result;
-            localStorage.setItem('sable_discovery_photos', JSON.stringify(parsed));
-          } catch {
-            // ignore
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleResetPhoto = () => {
-    setModalImage(perfume.image);
-    try {
-      const saved = localStorage.getItem('sable_discovery_photos');
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        delete parsed[perfume.id];
-        localStorage.setItem('sable_discovery_photos', JSON.stringify(parsed));
-      }
-    } catch {
-      // ignore
-    }
-  };
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 overflow-y-auto">
       {/* Background overlay */}
       <div 
         className="fixed inset-0 bg-[#0B0B0B]/80 backdrop-blur-md transition-opacity"
         onClick={onClose}
-      />
-
-      {/* Hidden file input */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handlePhotoUpload}
-        accept="image/*"
-        className="hidden"
       />
 
       {/* Modal Container */}
@@ -114,7 +55,7 @@ export const ProductPopup: React.FC<ProductPopupProps> = ({ perfume, onClose }) 
           {/* Left Column: Fragrance Image */}
           <div className="bg-[#0B0B0B] relative overflow-hidden border-b md:border-b-0 md:border-r border-[#2B2B2B]/50 min-h-[350px] md:min-h-full group">
             <img
-              src={modalImage || perfume.image}
+              src={perfume.image}
               alt={perfume.name}
               className="w-full h-full object-cover transform hover:scale-103 transition-transform duration-700 filter brightness-95"
               referrerPolicy="no-referrer"
@@ -122,28 +63,6 @@ export const ProductPopup: React.FC<ProductPopupProps> = ({ perfume, onClose }) 
             />
             {/* Subtle premium dark overlay at the bottom/edges */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none" />
-
-            {/* Quick Upload Action on modal photo */}
-            <div className="absolute bottom-4 left-4 z-20 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="flex items-center gap-1.5 bg-black/80 hover:bg-[#C9A66B] hover:text-black text-[#C9A66B] border border-[#C9A66B]/50 px-2.5 py-1 rounded-sm backdrop-blur-md text-[9px] font-mono tracking-wider uppercase transition-all duration-200 cursor-pointer shadow-lg"
-              >
-                <Camera className="w-3 h-3" />
-                <span>Upload Custom Photo</span>
-              </button>
-              {modalImage !== perfume.image && (
-                <button
-                  type="button"
-                  onClick={handleResetPhoto}
-                  className="p-1 bg-black/80 hover:bg-black text-red-400 border border-red-500/40 rounded-sm backdrop-blur-md transition-colors cursor-pointer"
-                  title="Reset to default photo"
-                >
-                  <RotateCcw className="w-3 h-3" />
-                </button>
-              )}
-            </div>
           </div>
 
           {/* Right Column: Fragrance Details */}

@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Perfume, CartItem } from '../types';
-import { Plus, Minus, Sparkles, Camera, RotateCcw } from 'lucide-react';
+import { Plus, Minus, Sparkles } from 'lucide-react';
 import { DISCOVERY_SET_HERO_IMAGE } from '../data';
 
 interface DiscoverySetCardProps {
@@ -23,28 +23,10 @@ export const DiscoverySetCard: React.FC<DiscoverySetCardProps> = ({
   );
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Persistent photo storage for the 4 discovery sets
-  const [customPhotos, setCustomPhotos] = useState<Record<string, string>>(() => {
-    try {
-      const saved = localStorage.getItem('sable_discovery_photos');
-      return saved ? JSON.parse(saved) : {};
-    } catch {
-      return {};
-    }
-  });
-
   const activeSet =
     discoverySets.find((s) => s.id === selectedId) || discoverySets[0];
 
-  const currentImage =
-    customPhotos[activeSet.id] || activeSet.image || DISCOVERY_SET_HERO_IMAGE;
-
-  const currentPerfumeWithPhoto: Perfume = {
-    ...activeSet,
-    image: currentImage
-  };
+  const currentImage = activeSet.image || DISCOVERY_SET_HERO_IMAGE;
 
   const quantityInCart =
     cartItems.find((item) => item.perfume.id === activeSet.id)?.quantity || 0;
@@ -57,51 +39,11 @@ export const DiscoverySetCard: React.FC<DiscoverySetCardProps> = ({
     { id: 'discovery-the-sable-archive', label: 'Archive' }
   ];
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (typeof reader.result === 'string') {
-          const updated = { ...customPhotos, [activeSet.id]: reader.result };
-          setCustomPhotos(updated);
-          try {
-            localStorage.setItem('sable_discovery_photos', JSON.stringify(updated));
-          } catch {
-            // ignore
-          }
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleResetPhoto = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const updated = { ...customPhotos };
-    delete updated[activeSet.id];
-    setCustomPhotos(updated);
-    try {
-      localStorage.setItem('sable_discovery_photos', JSON.stringify(updated));
-    } catch {
-      // ignore
-    }
-  };
-
   return (
     <div
-      onClick={() => onCardClick(currentPerfumeWithPhoto)}
+      onClick={() => onCardClick(activeSet)}
       className="group relative flex flex-col justify-between bg-[#121212] border border-[#C9A66B]/40 hover:border-[#C9A66B] transition-all duration-300 rounded-sm cursor-pointer shadow-lg overflow-hidden h-full ring-1 ring-[#C9A66B]/20 hover:ring-[#C9A66B]/40"
     >
-      {/* Hidden File Input for Custom Photo Upload */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        onChange={handlePhotoUpload}
-        accept="image/*"
-        className="hidden"
-      />
-
       {/* Product Image Area - Full Bleed Grid Aspect matching ProductCard */}
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#141414] border-b border-[#2B2B2B]/40">
         {/* Shimmer Placeholder while loading */}
@@ -131,34 +73,8 @@ export const DiscoverySetCard: React.FC<DiscoverySetCardProps> = ({
           </span>
         </div>
 
-        {/* Top Right: Flacon Count Badge & Upload Photo Action */}
-        <div className="absolute top-2.5 right-2.5 z-10 flex items-center gap-1.5">
-          {customPhotos[activeSet.id] && (
-            <button
-              type="button"
-              onClick={handleResetPhoto}
-              title="Reset to default photo"
-              className="bg-[#0B0B0B]/90 hover:bg-[#2B2B2B] border border-red-500/40 text-red-400 p-1 rounded-sm backdrop-blur-sm cursor-pointer transition-colors"
-            >
-              <RotateCcw className="w-2.5 h-2.5" />
-            </button>
-          )}
-
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              fileInputRef.current?.click();
-            }}
-            title={`Upload custom photo for ${activeSet.name}`}
-            className="flex items-center gap-1 bg-[#0B0B0B]/90 hover:bg-[#C9A66B] hover:text-[#0B0B0B] border border-[#C9A66B]/60 text-[#C9A66B] px-1.5 py-0.5 rounded-sm backdrop-blur-sm transition-all duration-200 cursor-pointer"
-          >
-            <Camera className="w-2.5 h-2.5" />
-            <span className="font-mono text-[8px] tracking-wider uppercase font-semibold">
-              {customPhotos[activeSet.id] ? 'CHANGE' : 'PHOTO'}
-            </span>
-          </button>
-
+        {/* Top Right: Flacon Count Badge */}
+        <div className="absolute top-2.5 right-2.5 z-10">
           <div className="bg-[#0B0B0B]/85 border border-[#2B2B2B] px-2 py-0.5 rounded-sm backdrop-blur-sm">
             <span className="font-mono text-[8px] tracking-wider text-[#C9A66B] font-semibold">
               {activeSet.itemsInside ? `${activeSet.itemsInside.length} × 10 ML` : '10 ML'}
@@ -225,7 +141,7 @@ export const DiscoverySetCard: React.FC<DiscoverySetCardProps> = ({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onDecrease(currentPerfumeWithPhoto);
+                    onDecrease(activeSet);
                   }}
                   className="px-3 h-full hover:bg-[#C9A66B] hover:text-[#0B0B0B] text-[#C9A66B] transition-colors rounded-l-sm flex items-center justify-center cursor-pointer"
                   aria-label={`Decrease quantity of ${activeSet.name}`}
@@ -239,7 +155,7 @@ export const DiscoverySetCard: React.FC<DiscoverySetCardProps> = ({
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
-                    onAddToCart(currentPerfumeWithPhoto);
+                    onAddToCart(activeSet);
                   }}
                   className="px-3 h-full hover:bg-[#C9A66B] hover:text-[#0B0B0B] text-[#C9A66B] transition-colors rounded-r-sm flex items-center justify-center cursor-pointer"
                   aria-label={`Increase quantity of ${activeSet.name}`}
@@ -252,7 +168,7 @@ export const DiscoverySetCard: React.FC<DiscoverySetCardProps> = ({
                 type="button"
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent opening the details modal
-                  onAddToCart(currentPerfumeWithPhoto);
+                  onAddToCart(activeSet);
                 }}
                 className="flex items-center gap-1 bg-[#121212] hover:bg-[#C9A66B] hover:text-[#0B0B0B] text-[#C9A66B] border border-[#C9A66B]/60 hover:border-[#C9A66B] px-3 py-1.5 rounded-sm font-sans text-[10px] font-semibold tracking-widest transition-all duration-300 uppercase cursor-pointer shrink-0"
                 aria-label={`Add ${activeSet.name} to cart`}
