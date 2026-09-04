@@ -58,7 +58,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
       const isMultiple = item.quantity > 1;
       const itemSubtotal = perfume.price * item.quantity;
       
-      itemsText += `• ${perfume.name}\n`;
+      itemsText += `• ${perfume.name}${perfume.size ? ` [${perfume.size}]` : ''}${perfume.chapter ? ` (${perfume.chapter})` : ''}\n`;
+      if (perfume.itemsInside && perfume.itemsInside.length > 0) {
+        itemsText += `  Includes: ${perfume.itemsInside.join(' • ')}\n`;
+      }
       itemsText += `Quantity: ${item.quantity}\n`;
       itemsText += `Price: ${formatCurrency(perfume.price)}${isMultiple ? ' each' : ''}\n`;
       if (isMultiple) {
@@ -149,12 +152,24 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
 
                     {/* Details Column */}
                     <div className="flex-grow min-w-0">
-                      <span className="block font-serif text-[9px] tracking-wider text-[#C9A66B] uppercase mb-0.5">
-                        {perfume.chapter}
-                      </span>
+                      <div className="flex items-center gap-2 mb-0.5">
+                        <span className="block font-serif text-[9px] tracking-wider text-[#C9A66B] uppercase">
+                          {perfume.chapter}
+                        </span>
+                        {perfume.size && (
+                          <span className="px-1.5 py-0.5 bg-[#1C1C1C] border border-[#C9A66B]/40 text-[8.5px] font-mono text-[#C9A66B] rounded-xs font-semibold">
+                            {perfume.size}
+                          </span>
+                        )}
+                      </div>
                       <h4 className="font-serif text-sm tracking-wider text-white font-medium truncate">
                         {perfume.name}
                       </h4>
+                      {perfume.itemsInside && perfume.itemsInside.length > 0 && (
+                        <p className="font-sans text-[10px] text-[#A0A0A0] mt-0.5 line-clamp-1 italic">
+                          Contents: {perfume.itemsInside.join(' • ')}
+                        </p>
+                      )}
                       <p className="font-mono text-xs text-[#8A8A8A] mt-1">
                         {formatCurrency(perfume.price)} each
                       </p>

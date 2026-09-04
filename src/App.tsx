@@ -2,13 +2,15 @@ import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Features } from './components/Features';
+import { SableEditionsSection } from './components/SableEditionsSection';
+import { DiscoverySetCard } from './components/DiscoverySetCard';
 import { CollectionHeader } from './components/CollectionHeader';
 import { ProductCard } from './components/ProductCard';
 import { ProductPopup } from './components/ProductPopup';
 import { CartDrawer } from './components/CartDrawer';
 import { Footer } from './components/Footer';
 import { Preloader } from './components/Preloader';
-import { PERFUMES_DATA } from './data';
+import { PERFUMES_DATA, SABLE_EDITIONS_DATA, DISCOVERY_SETS_DATA } from './data';
 import { Perfume, CartItem } from './types';
 import { ShoppingBag, CheckCircle2 } from 'lucide-react';
 
@@ -50,7 +52,7 @@ export default function App() {
     }
 
     saveCart(updatedCart);
-    triggerToast(`Added ${quantity}x ${perfume.name} to cart`);
+    triggerToast(`Added ${quantity}x ${perfume.name}${perfume.size ? ` (${perfume.size})` : ''} to cart`);
   };
 
   // Directly add 1 item from card
@@ -113,23 +115,41 @@ export default function App() {
         {/* Feature Cards Section (Born in Kashmir, etc.) */}
         <Features />
 
-        {/* Collection Section */}
+        {/* 1. SABLE EDITIONS: Deodar, Nubra, Lidder */}
+        <SableEditionsSection
+          editions={SABLE_EDITIONS_DATA}
+          cartItems={cartItems}
+          onCardClick={(perfume) => setSelectedPerfume(perfume)}
+          onAddToCart={(perfume) => handleDirectAdd(perfume)}
+          onDecrease={(perfume) => handleDirectDecrease(perfume)}
+        />
+
+        {/* 2. Collection Section with Discovery Set Card + Fragrance Catalogue */}
         <div id="collection-anchor" className="bg-[#0B0B0B] pb-24 border-b border-[#2B2B2B]/40">
           <CollectionHeader />
 
           {/* Perfume Collection Grid */}
           <div className="max-w-7xl mx-auto px-6 md:px-12">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+              {/* Creative Discovery Set Card with Choose Option Features */}
+              <DiscoverySetCard
+                discoverySets={DISCOVERY_SETS_DATA}
+                cartItems={cartItems}
+                onCardClick={(perfume) => setSelectedPerfume(perfume)}
+                onAddToCart={(perfume) => handleDirectAdd(perfume)}
+                onDecrease={(perfume) => handleDirectDecrease(perfume)}
+              />
+
+              {/* Fragrance Collection Cards */}
               {PERFUMES_DATA.map((perfume) => {
-                const quantityInCart = cartItems.find((item) => item.perfume.id === perfume.id)?.quantity || 0;
                 return (
                   <ProductCard
                     key={perfume.id}
                     perfume={perfume}
-                    quantityInCart={quantityInCart}
-                    onCardClick={() => setSelectedPerfume(perfume)}
-                    onAddToCart={() => handleDirectAdd(perfume)}
-                    onDecrease={() => handleDirectDecrease(perfume)}
+                    cartItems={cartItems}
+                    onCardClick={(activePerfume) => setSelectedPerfume(activePerfume)}
+                    onAddToCart={(activePerfume) => handleDirectAdd(activePerfume)}
+                    onDecrease={(activePerfume) => handleDirectDecrease(activePerfume)}
                   />
                 );
               })}

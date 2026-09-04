@@ -12,6 +12,7 @@ export const Hero: React.FC = () => {
           className="w-full h-full object-cover object-center scale-105 filter brightness-50"
           referrerPolicy="no-referrer"
           fetchPriority="high"
+          loading="eager"
           decoding="async"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#0B0B0B] via-[#0B0B0B]/70 to-[#0B0B0B]/30" />

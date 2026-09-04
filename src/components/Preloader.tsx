@@ -71,15 +71,15 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     // Automatically play the ambient sound immediately on mount
     playAmbientSound();
 
-    // Start fading out after 2.5 seconds
+    // Start fading out after 1.2 seconds for rapid, smooth entry
     const fadeTimeout = setTimeout(() => {
       setIsFadingOut(true);
-    }, 2500);
+    }, 1200);
 
-    // Call onComplete to unmount after fadeout transition completes (3.5s total)
+    // Call onComplete to unmount after fadeout transition completes (1.8s total)
     const completeTimeout = setTimeout(() => {
       onComplete();
-    }, 3500);
+    }, 1800);
 
     return () => {
       clearTimeout(fadeTimeout);

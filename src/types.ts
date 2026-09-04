@@ -1,3 +1,9 @@
+export interface PerfumeSizeOption {
+  size: '30ml' | '100ml';
+  label: string;
+  price: number;
+}
+
 export interface Perfume {
   id: string;
   name: string;
@@ -9,6 +15,12 @@ export interface Perfume {
   topNotes: string[];
   heartNotes: string[];
   baseNotes: string[];
+  story?: string[];
+  olfactoryProfile?: string;
+  itemsInside?: string[];
+  isDiscoverySet?: boolean;
+  size?: string;
+  availableSizes?: PerfumeSizeOption[];
 }
 
 export interface CartItem {
